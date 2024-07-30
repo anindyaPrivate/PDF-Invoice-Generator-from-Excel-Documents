@@ -29,7 +29,7 @@ for filepath in filepaths:
     columns = df.columns
     columns = [item.replace('-', ' ').title() for item in columns]
 
-    pdf.set_font(family='Times', size=15 , style='B')
+    pdf.set_font(family='Times', size=12, style='B')
     pdf.cell(w=25, h=9, txt=columns[0], border=1)
     pdf.cell(w=60, h=9, txt=columns[1], border=1)
     pdf.cell(w=45, h=9, txt=columns[2], border=1)
@@ -38,11 +38,30 @@ for filepath in filepaths:
 
     for key, row in df.iterrows():
         # Add Rows of the table
-        pdf.set_font(family='Times', size=15)
+        pdf.set_font(family='Times', size=12)
         pdf.cell(w=25, h=9, txt=str(row['product_id']), border=1)
         pdf.cell(w=60, h=9, txt=str(row['product_name']), border=1)
         pdf.cell(w=45, h=9, txt=str(row['amount_purchased']), border=1)
         pdf.cell(w=35, h=9, txt=str(row['price_per_unit']), border=1)
         pdf.cell(w=30, h=9, txt=str(row['total_price']), border=1, ln=1)
+
+    # adding total for total price
+    total_price_sum = df['total_price'].sum()
+    pdf.set_font(family='Times', size=12)
+    pdf.cell(w=25, h=9, txt='', border=1)
+    pdf.cell(w=60, h=9, txt='', border=1)
+    pdf.cell(w=45, h=9, txt='', border=1)
+    pdf.cell(w=35, h=9, txt='', border=1)
+    pdf.cell(w=30, h=9, txt=str(total_price_sum), border=1, ln=1)
+
+    # Additional lines
+    pdf.set_font(family='Times', size=16, style='B')
+    pdf.set_text_color(80, 80, 80)
+    pdf.cell(w=30, h=8, txt=f"The total price is {total_price_sum}", ln=1)
+
+    pdf.set_font(family='Times', size=16, style='B')
+    pdf.set_text_color(80, 80, 80)
+    pdf.cell(w=30, h=8, txt=f'PythonHow')
+    pdf.image("pythonhow.png", w=10)
 
     pdf.output(f"PDF/{filename}.pdf")
