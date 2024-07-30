@@ -17,7 +17,7 @@ pip install pandas fpdf pathlib
 ```
 
 # Project Structure
-.
+
 ├── invoices/           # Directory containing the Excel invoice files
 
 ├── PDF/                # Directory where the generated PDF invoices will be saved
